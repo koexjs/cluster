@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
+const path_1 = require("path");
+const commander = require("commander");
+const env = process.env;
+function makeSureFileExists() {
+    const filename = commander.args[0];
+    const resolvedFilename = path_1.resolve(filename);
+    const requirename = require.resolve(resolvedFilename);
+    try {
+        fs_1.statSync(requirename);
+    }
+    catch (err) {
+        console.error('resolved %s to %s then %s', filename, resolvedFilename, requirename);
+        console.error('however, %s does not exist', requirename);
+        process.exit(1);
+    }
+}
+function getApp(filename) {
+    const resolvedFilename = path_1.resolve(filename);
+    const requirename = require.resolve(resolvedFilename);
+    const module = require(requirename);
+    return module.default || module;
+}
+function setProcessTitle() {
+    if (commander.title) {
+        process.title = commander.title;
+    }
+}
+function startCluster() {
+    const startMaster = require('../lib/master').startMaster;
+    const filename = commander.args[0];
+    const app = getApp(filename);
+    return startMaster(app.callback(), {
+        procs: commander.instances || 0,
+        port: parseInt(commander.port) || parseInt(env.PORT) || 5300,
+        host: commander.host || env.HOST || '0.0.0.0',
+        callback: () => null,
+    });
+}
+commander
+    .usage('<app>')
+    .option('-p, --port <str>', 'server port, default 5300')
+    .option('-h, --hot <str>', 'server host, default 0.0.0.0')
+    .option('-t, --title <str>', 'title of the process')
+    .option('-i, --instances <int>', 'number of the instances to user', parseInt)
+    .option('-s, --startsecs <int>', 'number of seconds which children needs to'
+    + ' stay running to be considered a successfully start [1]', parseInt, 1)
+    .parse(process.argv);
+makeSureFileExists();
+setProcessTitle();
+startCluster();
