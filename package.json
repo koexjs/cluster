@@ -1,6 +1,6 @@
 {
   "name": "@zcorky/koa-cluster",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "cluster for koa",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -32,7 +32,8 @@
     "typescript": "^3.1.1"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "bin/"
   ],
   "nyc": {
     "check-coverage": true,
