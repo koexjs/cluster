@@ -1,10 +1,12 @@
 {
   "name": "@zcorky/koa-cluster",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "cluster for koa",
   "main": "lib/index.js",
   "module": "lib/index.js",
-  "bin": "bin/koa-cluster",
+  "bin": {
+    "koa-cluster": "./bin/koa-cluster"
+  },
   "repository": "https://github.com/zcorky/koa-cluster",
   "author": "Zero",
   "license": "MIT",
