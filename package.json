@@ -1,6 +1,6 @@
 {
   "name": "@koex/cluster",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "cluster for koa extend",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -23,6 +23,7 @@
     "@types/node": "^10.9.4",
     "coveralls": "^3.0.2",
     "husky": "^1.2.0",
+    "koa": "^2.6.2",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "rimraf": "^2.6.2",
