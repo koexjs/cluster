@@ -58,6 +58,9 @@ export async function closeWorker(code: number) {
     server.close(() => {
       // close server successfully
       server = null;
+
+      // exit process
+      process.exit(code);
     })
   }
 }

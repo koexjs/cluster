@@ -56,6 +56,9 @@ function terminate() {
     // worker!.kill('SIGTERM');
     worker!.destroy();
   });
+
+  // exit main with normal terminal
+  process.exit(0);
 }
 
 function listenCluster() {
